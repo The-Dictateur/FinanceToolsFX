@@ -7,8 +7,7 @@ import java.net.URL;
 
 public class StockFetcher {
 
-    public static void stock() throws Exception {
-        String symbol = "NVDA";
+    public static String stock(String symbol) throws Exception {
         String apiKey = "d0039p1r01qud9qlgga0d0039p1r01qud9qlggag";
         String endpoint = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + apiKey;
 
@@ -26,6 +25,7 @@ public class StockFetcher {
 
         in.close();
 
-        System.out.println("Respuesta JSON: " + response);
+        // Devolver la respuesta como String
+        return response.toString();
     }
 }

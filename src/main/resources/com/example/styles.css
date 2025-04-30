@@ -1,0 +1,50 @@
+/* Estilo básico para el fondo de la aplicación */
+.root {
+    -fx-background-color: #c3e9f5; /* Fondo gris claro */
+}
+
+/* Estilo para los botones */
+.button {
+    -fx-background-color: #5c89b3; /* Verde */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 12px;
+    -fx-padding: 10px 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Estilo cuando el mouse pasa sobre el botón */
+.button:hover {
+    -fx-background-color: #4a7dad; /* Verde más oscuro */
+}
+
+/* Estilo para los campos de texto */
+.text-field {
+    -fx-border-color: #000000;
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-pref-width: 150px; /* Ancho fijo */
+}
+
+/* Estilo para etiquetas */
+.label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+}
+
+.text-positive {
+    -fx-text-fill: green; /* Color verde */
+    -fx-font-weight: bold; /* Texto en negrita (opcional) */
+}
+
+/* Estilo para texto negativo */
+.text-negative {
+    -fx-text-fill: red; /* Color rojo */
+    -fx-font-weight: bold; /* Texto en negrita (opcional) */
+}
+
+.info {
+    -fx-background-color: #d2f2fc; /* Fondo azul claro */
+    -fx-padding: 5px;
+}

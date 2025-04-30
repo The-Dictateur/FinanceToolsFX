@@ -1,5 +1,7 @@
 package com.example;
 
+import org.json.JSONObject;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -37,12 +39,29 @@ public class Controller {
     private Button btnVisible;
 
     @FXML
+    private Button btnBuscar;
+
+    @FXML
+    private TextField valorSymbol;
+
+    @FXML
+    private TextField symbol;
+
+    @FXML
+    private TextField cambioSymbol;
+
+    @FXML
     public void initialize() {
         // Configurar el botón "Calcular" para "Valor Inicial"
         btnInicial.setOnAction(event -> calcularValorInicial());
-
         // Configurar el botón "Calcular" para "Valor Visible"
         btnVisible.setOnAction(event -> calcularValorVisible());
+        btnBuscar.setOnAction(event -> buscarStock());
+
+        // Aplicar animación hover a los botones
+        Transicion.aplicarTransicionHover(btnInicial);
+        Transicion.aplicarTransicionHover(btnVisible);
+        Transicion.aplicarTransicionHover(btnBuscar);
     }
 
     private void calcularValorInicial() {
@@ -92,6 +111,45 @@ public class Controller {
             resultadoVisible.setText(String.format("%.2f%%", nuevoPorcentaje));
         } catch (NumberFormatException e) {
             resultadoVisible.setText("Error");
+        }
+    }
+
+    private void buscarStock() {
+        try {
+
+        // Obtener el símbolo del stock desde el campo de texto
+        String symbol = this.symbol.getText().toUpperCase();
+
+        // Llamar al método StockFetcher para obtener los datos del stock
+        String resultado = StockFetcher.stock(symbol);
+
+        // Procesar el JSON
+        JSONObject json = new JSONObject(resultado);
+
+        // Extraer los valores relevantes como String
+        String precioActual = String.valueOf(json.getDouble("c"));
+        String cambio = String.valueOf(json.getDouble("d"));
+        String porcentajeCambio = String.valueOf(json.getDouble("dp"));
+        String maximo = String.valueOf(json.getDouble("h"));
+        String minimo = String.valueOf(json.getDouble("l"));
+        String apertura = String.valueOf(json.getDouble("o"));
+        String cierreAnterior = String.valueOf(json.getDouble("pc"));
+
+        valorSymbol.setText(precioActual);
+        cambioSymbol.setText(cambio + " | " + porcentajeCambio + "%");
+
+        // Aplicar estilos dinámicos según el valor de "cambio"
+        cambioSymbol.getStyleClass().removeAll("text-positive", "text-negative"); // Eliminar clases previas
+        if (Double.parseDouble(cambio) >= 0) {
+            cambioSymbol.getStyleClass().add("text-positive"); // Agregar clase positiva
+            valorSymbol.getStyleClass().add("text-positive"); // Agregar clase positiva
+        } else {
+            cambioSymbol.getStyleClass().add("text-negative"); // Agregar clase negativa
+            valorSymbol.getStyleClass().add("text-negative"); // Agregar clase negativa
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            valorSymbol.setText("Error al buscar el stock.");
         }
     }
 }
