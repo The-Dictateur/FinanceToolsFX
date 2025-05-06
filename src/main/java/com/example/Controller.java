@@ -130,10 +130,10 @@ public class Controller {
         String precioActual = String.valueOf(json.getDouble("c"));
         String cambio = String.valueOf(json.getDouble("d"));
         String porcentajeCambio = String.valueOf(json.getDouble("dp"));
-        String maximo = String.valueOf(json.getDouble("h"));
-        String minimo = String.valueOf(json.getDouble("l"));
-        String apertura = String.valueOf(json.getDouble("o"));
-        String cierreAnterior = String.valueOf(json.getDouble("pc"));
+        // String maximo = String.valueOf(json.getDouble("h"));
+        // String minimo = String.valueOf(json.getDouble("l"));
+        // String apertura = String.valueOf(json.getDouble("o"));
+        // String cierreAnterior = String.valueOf(json.getDouble("pc"));
 
         valorSymbol.setText(precioActual);
         cambioSymbol.setText(cambio + " | " + porcentajeCambio + "%");
