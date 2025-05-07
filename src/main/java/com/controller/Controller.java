@@ -1,10 +1,23 @@
-package com.example;
+package com.controller;
+
+import java.io.IOException;
 
 import org.json.JSONObject;
 
+import com.example.StockFetcher;
+import com.example.Transicion;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import com.controller.controllerDCA; // Update to the correct package for DCAController
 
 public class Controller {
 
@@ -42,14 +55,45 @@ public class Controller {
     private TextField cambioSymbol;
 
     @FXML
+    private Button btndca;
+
+    @FXML
+    private Spinner balanceInicial;
+
+    @FXML
+    private Spinner deposito;
+
+    @FXML
+    private Spinner interesAnual;
+    
+    @FXML
+    private Spinner duracion;
+
+    @FXML
+    private VBox vboxDCA;
+
+    @FXML
+    private Label resultadoDCA;
+
+    @FXML
     public void initialize() {
         // Configurar el botón "Calcular" para "Valor Inicial"
         btnInicial.setOnAction(event -> calcularValorInicial());
+
+        btndca.setOnAction(event -> {
+            try {
+                calcularDCA();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         btnBuscar.setOnAction(event -> buscarStock());
 
         // Aplicar animación hover a los botones
         Transicion.aplicarTransicionHover(btnInicial);
         Transicion.aplicarTransicionHover(btnBuscar);
+        Transicion.aplicarTransicionHover(btndca);
     }
 
     private void calcularValorInicial() {
@@ -71,13 +115,28 @@ public class Controller {
         }
     }
 
+    private void calcularDCA() throws IOException {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/dca.fxml"));
+        Parent dca = loader.load();
+
+        Stage nuevaVentana = new Stage();
+        nuevaVentana.setTitle("Resultado DCA");
+        nuevaVentana.setScene(new Scene(dca));
+        nuevaVentana.show();
+
+        } catch (NumberFormatException e) {
+            resultadoVisible.setText("Error");
+        }
+    }
+
     private void buscarStock() {
         try {
 
         // Limpiar los campos de texto antes de buscar
         valorSymbol.clear();
         cambioSymbol.clear();
-        
+
         // Obtener el símbolo del stock desde el campo de texto
         String symbol = this.symbol.getText().toUpperCase();
 
