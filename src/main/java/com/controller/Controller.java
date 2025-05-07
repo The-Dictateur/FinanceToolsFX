@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -58,16 +59,16 @@ public class Controller {
     private Button btndca;
 
     @FXML
-    private Spinner balanceInicial;
+    private Spinner<Double> balanceInicial;
 
     @FXML
-    private Spinner deposito;
+    private Spinner<Double> deposito;
 
     @FXML
-    private Spinner interesAnual;
+    private Spinner<Double> interesAnual;
     
     @FXML
-    private Spinner duracion;
+    private Spinner<Integer> duracion;
 
     @FXML
     private VBox vboxDCA;
@@ -94,6 +95,12 @@ public class Controller {
         Transicion.aplicarTransicionHover(btnInicial);
         Transicion.aplicarTransicionHover(btnBuscar);
         Transicion.aplicarTransicionHover(btndca);
+
+        //Inicializar los valores de los spinners
+        balanceInicial.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000000.0, 100.0, 1.0));
+        deposito.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000000.0, 50.0, 1.0));
+        interesAnual.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 100.0, 5.0, 0.1));
+        duracion.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 10, 1));
     }
 
     private void calcularValorInicial() {
@@ -119,6 +126,17 @@ public class Controller {
         try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/dca.fxml"));
         Parent dca = loader.load();
+
+        controllerDCA dcaController = loader.getController();
+
+        // Obtener los valores de los spinners
+        dcaController.setBalanceInicial((double) balanceInicial.getValue());
+        dcaController.setDeposito((double) deposito.getValue());
+        dcaController.setInteresAnual((double) interesAnual.getValue());
+        dcaController.setDuracion((int) duracion.getValue());
+
+        dcaController.resultadoDCA(); // Llamar al método para calcular el resultado
+        
 
         Stage nuevaVentana = new Stage();
         nuevaVentana.setTitle("Resultado DCA");
