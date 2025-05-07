@@ -11,7 +11,7 @@
 
 <TabPane fx:id="mainWindow" prefHeight="270.0" prefWidth="293.0" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller">
   <tabs>
-    <Tab text="Inicial">
+    <Tab text="Promedio">
          <content>
             <Pane prefHeight="308.0" prefWidth="276.0">
                <children>
@@ -31,25 +31,11 @@
             </Pane>
          </content>
     </Tab>
-    <Tab text="Visible">
+      <Tab text="DCA">
          <content>
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="btnVisible" layoutX="26.0" layoutY="188.0" mnemonicParsing="false" text="Calcular">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Button>
-                  <Label layoutX="21.0" layoutY="71.0" text="Valor Visible" />
-                  <Label layoutX="32.0" layoutY="102.0" text="\% Actual" />
-                  <Label layoutX="31.0" layoutY="132.0" text="Inversion" />
-                  <TextField fx:id="resultadoVisible" editable="false" layoutX="101.0" layoutY="188.0" />
-                  <TextField fx:id="valorVisible" layoutX="101.0" layoutY="66.0" />
-                  <TextField fx:id="visiblePorcentage" layoutX="101.0" layoutY="97.0" />
-                  <TextField fx:id="inversionVisible" layoutX="101.0" layoutY="127.0" />
-                  <Label layoutX="8.0" layoutY="8.0" prefHeight="51.0" prefWidth="278.0" styleClass="info" text="Introduce el capital actual visible de la inversion" wrapText="true" />
-               </children>
-            </Pane>
-         </content></Tab>
+            <Pane prefHeight="308.0" prefWidth="276.0" />
+         </content>
+      </Tab>
       <Tab text="Stocks">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

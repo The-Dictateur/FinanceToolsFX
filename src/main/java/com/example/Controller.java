@@ -21,22 +21,13 @@ public class Controller {
     private TextField resultadoInicial;
 
     @FXML
-    private TextField valorVisible;
-
-    @FXML
     private TextField visiblePorcentage;
-
-    @FXML
-    private TextField inversionVisible;
 
     @FXML
     private TextField resultadoVisible;
 
     @FXML
     private Button btnInicial;
-
-    @FXML
-    private Button btnVisible;
 
     @FXML
     private Button btnBuscar;
@@ -54,13 +45,10 @@ public class Controller {
     public void initialize() {
         // Configurar el botón "Calcular" para "Valor Inicial"
         btnInicial.setOnAction(event -> calcularValorInicial());
-        // Configurar el botón "Calcular" para "Valor Visible"
-        btnVisible.setOnAction(event -> calcularValorVisible());
         btnBuscar.setOnAction(event -> buscarStock());
 
         // Aplicar animación hover a los botones
         Transicion.aplicarTransicionHover(btnInicial);
-        Transicion.aplicarTransicionHover(btnVisible);
         Transicion.aplicarTransicionHover(btnBuscar);
     }
 
@@ -83,40 +71,13 @@ public class Controller {
         }
     }
 
-    private void calcularValorVisible() {
-        try {
-            // Obtener valores de los campos de texto
-            double valorVisible = Double.parseDouble(this.valorVisible.getText().replace(",", "."));
-            double porcentaje = Double.parseDouble(visiblePorcentage.getText().replace(",", "."));
-            double inversion = Double.parseDouble(inversionVisible.getText().replace(",", "."));
-    
-            // Calcular el valor inicial a partir del valor visible y el porcentaje
-            double valorInicial;
-            if (porcentaje >= 0) {
-                // Si el porcentaje es positivo
-                valorInicial = valorVisible * (1 + (porcentaje / 100));
-            } else {
-                // Si el porcentaje es negativo
-                valorInicial = valorVisible / (1 + (porcentaje / 100));
-            }
-    
-            // Calcular el nuevo capital sumando la inversión al valor inicial
-            double cambioAbsoluto = valorInicial * (porcentaje / 100);
-            double nuevoCapital = valorInicial + inversion;
-    
-            // Calcular el nuevo porcentaje de cambio (DCA)
-            double nuevoPorcentaje = (cambioAbsoluto / nuevoCapital) * 100;
-    
-            // Mostrar el resultado en el campo de texto
-            resultadoVisible.setText(String.format("%.2f%%", nuevoPorcentaje));
-        } catch (NumberFormatException e) {
-            resultadoVisible.setText("Error");
-        }
-    }
-
     private void buscarStock() {
         try {
 
+        // Limpiar los campos de texto antes de buscar
+        valorSymbol.clear();
+        cambioSymbol.clear();
+        
         // Obtener el símbolo del stock desde el campo de texto
         String symbol = this.symbol.getText().toUpperCase();
 
