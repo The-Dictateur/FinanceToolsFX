@@ -5,6 +5,7 @@ import java.util.Locale;
 import javafx.scene.chart.PieChart;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import com.example.Transicion;
@@ -90,5 +91,10 @@ public class controllerDCA {
         PieChart.Data sliceIntereses = new PieChart.Data("Intereses", interes);
 
         pieChartDCA.getData().addAll(sliceCapitalInicial, sliceAhorroSinInteres, sliceIntereses); // Agregar los nuevos datos al gráfico
+
+        pieChartDCA.setTitle("Gráfico"); // Establecer el título del gráfico
+        pieChartDCA.setLabelsVisible(true); // Hacer visibles las etiquetasº
+        pieChartDCA.setLegendVisible(true); // Hacer visible la leyenda
+        pieChartDCA.setLabelLineLength(10); // Establecer la longitud de la línea de etiqueta
     }
 }
