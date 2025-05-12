@@ -1,5 +1,9 @@
 package com.controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javafx.scene.chart.PieChart;
@@ -9,6 +13,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import com.example.Transicion;
+import com.opencsv.CSVWriter;
 
 public class controllerDCA {
     private double balanceInicial;
@@ -53,6 +58,14 @@ public class controllerDCA {
 
     public void initialize() {
         Transicion.aplicarTransicionHover(btnDescargarXlsx);
+        btnDescargarXlsx.setOnAction(event -> {
+            try {
+                descargarXlsx();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
     }
 
     public void resultadoDCA() {
@@ -96,5 +109,38 @@ public class controllerDCA {
         pieChartDCA.setLabelsVisible(true); // Hacer visibles las etiquetasº
         pieChartDCA.setLegendVisible(true); // Hacer visible la leyenda
         pieChartDCA.setLabelLineLength(10); // Establecer la longitud de la línea de etiqueta
+    }
+
+    private void descargarXlsx() throws IOException {
+        
+        String userHome = System.getProperty("user.home");
+        String downloadDir = Paths.get(userHome, "Downloads").toString(); // Carpeta Descargas
+        Files.createDirectories(Paths.get(downloadDir)); // Crear la carpeta si no existe
+
+        // Ruta completa del archivo
+        String nombreArchivo = Paths.get(downloadDir, "Resultado_DCA.csv").toString();
+
+        try (FileWriter writer = new FileWriter(nombreArchivo)) {
+            CSVWriter csvWriter = new CSVWriter(writer, ';', 
+                CSVWriter.NO_QUOTE_CHARACTER, 
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+                CSVWriter.DEFAULT_LINE_END);
+            String[] header = { "Capital Inicial", "Ahorro sin Interes", "Intereses", "Total" };
+            csvWriter.writeNext(header);
+
+            String ahorroSinInteresLimpio = ahorroSinInteresResultado.getText().replace(" €", "").replace(".", "").replace(",", ".");
+            String interesLimpio = interesResultado.getText().replace(" €", "").replace(".", "").replace(",", ".");
+            String totalLimpio = resultadoDCA.getText().replace(" €", "").replace(".", "").replace(",", ".");
+
+            String[] data = { String.valueOf(balanceInicial), String.valueOf(ahorroSinInteresLimpio),
+                    String.valueOf(interesLimpio), String.valueOf(totalLimpio) };
+            csvWriter.writeNext(data);
+
+            csvWriter.close();
+            System.out.println("Archivo CSV creado: " + nombreArchivo);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
