@@ -214,6 +214,10 @@ public class Controller {
             cambioSymbol.getStyleClass().add("text-negative"); // Agregar clase negativa
             valorSymbol.getStyleClass().add("text-negative"); // Agregar clase negativa
         }
+        sugerenciasStock.setVisible(false); // Ocultar la lista de sugerencias después de buscar
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            valorSymbol.setText("Error al buscar el stock.");
         } catch (Exception e) {
             e.printStackTrace();
             valorSymbol.setText("Error al buscar el stock.");
@@ -231,7 +235,6 @@ public class Controller {
                 .thenApply(HttpResponse::body)
                 .thenAccept(response -> {
                     JSONObject json = new JSONObject(response);
-                    System.out.println("Respuesta de Finnhub: " + response);
                     JSONArray resultArray = json.getJSONArray("result");
                     Platform.runLater(() -> {
                         sugerenciasStock.getItems().clear(); // Limpiar sugerencias anteriores
@@ -239,6 +242,9 @@ public class Controller {
                         for (int i = 0; i < resultArray.length(); i++) {
                             JSONObject stock = resultArray.getJSONObject(i);
                             String symbolSugerencia = stock.getString("symbol");
+                            if (symbolSugerencia.contains(".")) {
+                                continue; // Ignorar símbolos que contienen "."
+                            }
                             sugerenciasStock.getItems().add(symbolSugerencia);
                         }
                     });

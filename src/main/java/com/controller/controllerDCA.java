@@ -122,8 +122,8 @@ public class controllerDCA {
 
         try (FileWriter writer = new FileWriter(nombreArchivo)) {
             CSVWriter csvWriter = new CSVWriter(writer, ';', 
-                CSVWriter.NO_QUOTE_CHARACTER, 
-                CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                 CSVWriter.DEFAULT_LINE_END);
             String[] header = { "Capital Inicial", "Ahorro sin Interes", "Intereses", "Total" };
             csvWriter.writeNext(header);
