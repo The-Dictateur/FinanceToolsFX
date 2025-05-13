@@ -8,8 +8,7 @@ import java.net.URL;
 public class StockFetcher {
 
     public static String stock(String symbol) throws Exception {
-        String apiKey = "d0039p1r01qud9qlgga0d0039p1r01qud9qlggag";
-        String endpoint = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + apiKey;
+        String endpoint = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + Constants.API_KEY;
 
         URL url = new URL(endpoint);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

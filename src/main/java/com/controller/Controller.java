@@ -1,18 +1,26 @@
 package com.controller;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.example.Constants;
 import com.example.StockFetcher;
 import com.example.Transicion;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -76,6 +84,11 @@ public class Controller {
     private Label resultadoDCA;
 
     @FXML
+    private ListView<String> sugerenciasStock;
+
+    private final HttpClient client = HttpClient.newHttpClient();
+
+    @FXML
     public void initialize() {
         // Configurar el botón "Calcular" para "Valor Inicial"
         btnInicial.setOnAction(event -> calcularValorInicial());
@@ -89,6 +102,23 @@ public class Controller {
         });
 
         btnBuscar.setOnAction(event -> buscarStock());
+
+        symbol.textProperty().addListener((obs, oldText, newText) -> {
+            if (newText.length() >= 1) {
+                buscarSugerencias(newText);
+            } else {
+                sugerenciasStock.getItems().clear(); // Limpiar sugerencias si el campo está vacío
+            }
+        });
+        
+        sugerenciasStock.setOnMouseClicked(event -> {
+            String selectedSymbol = sugerenciasStock.getSelectionModel().getSelectedItem();
+            if (selectedSymbol != null) {
+                symbol.setText(selectedSymbol);
+                sugerenciasStock.getItems().clear(); // Limpiar sugerencias después de seleccionar
+                sugerenciasStock.setVisible(false); // Ocultar la lista de sugerencias
+            }
+        });
 
         // Aplicar animación hover a los botones
         Transicion.aplicarTransicionHover(btnInicial);
@@ -188,5 +218,34 @@ public class Controller {
             e.printStackTrace();
             valorSymbol.setText("Error al buscar el stock.");
         }
+    }
+    private void buscarSugerencias(String symbol) {
+        String endpoint = "https://finnhub.io/api/v1/search?q=" + symbol + "&token=" + Constants.API_KEY;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .GET()
+                .build();
+
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(response -> {
+                    JSONObject json = new JSONObject(response);
+                    System.out.println("Respuesta de Finnhub: " + response);
+                    JSONArray resultArray = json.getJSONArray("result");
+                    Platform.runLater(() -> {
+                        sugerenciasStock.getItems().clear(); // Limpiar sugerencias anteriores
+                        sugerenciasStock.setVisible(true);
+                        for (int i = 0; i < resultArray.length(); i++) {
+                            JSONObject stock = resultArray.getJSONObject(i);
+                            String symbolSugerencia = stock.getString("symbol");
+                            sugerenciasStock.getItems().add(symbolSugerencia);
+                        }
+                    });
+                })
+                .exceptionally(e -> {
+                    e.printStackTrace();
+                    return null;
+                });
     }
 }
