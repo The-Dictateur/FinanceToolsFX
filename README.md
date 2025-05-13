@@ -51,3 +51,7 @@
 git clone https://github.com/tuusuario/my-stock-tools.git
 cd my-stock-tools
 ```
+
+### 2. Ejecuta el proyecto
+
+- El proyecto está preparado para ejecutarse en el entorno de JavaFX si se ha configurado previamente el archivo launc.json
