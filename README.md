@@ -29,16 +29,16 @@
 ## Requisitos
 
 ### Java SDK 21 o superior
-Es necessaria la instalacion de Java SDK 21 o superior enlace: https://www.oracle.com/java/technologies/downloads/
+- Es necessaria la instalacion de Java SDK 21 o superior enlace: https://www.oracle.com/java/technologies/downloads/
 
 ### JavaFX SDK 21 o superior
-Descargar JavaFX SDK 21 o superior en la maquina desde el siguiente enlace: https://gluonhq.com/products/javafx/
+- Descargar JavaFX SDK 21 o superior en la maquina desde el siguiente enlace: https://gluonhq.com/products/javafx/
 
-Ubicar SDK en la carpeta de Java (C:\Program Files\Java\javafx-sdk-24.0.1)
+- Ubicar SDK en la carpeta de Java '(C:\Program Files\Java\javafx-sdk-24.0.1)'
 
-### Launch.json
+### Modificar launch.json
 
-Modificar ruta de JavaFX dependiendo de la version instalada en el equipo
+- Modificar ruta de JavaFX dependiendo de la version instalada en el equipo
 ```json
 "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.7/lib\" --add-modules javafx.controls,javafx.fxml"
 ```
