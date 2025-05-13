@@ -54,4 +54,4 @@ cd my-stock-tools
 
 ### 2. Ejecuta el proyecto
 
-- El proyecto está preparado para ejecutarse en el entorno de JavaFX si se ha configurado previamente el archivo launc.json
+- El proyecto está preparado para ejecutarse en el entorno de JavaFX si se ha configurado previamente el archivo launch.json
