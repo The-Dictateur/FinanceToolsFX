@@ -66,6 +66,9 @@ public class Controller {
     private Button btndca;
 
     @FXML
+    private Button btnHipoteca;
+
+    @FXML
     private Spinner<Double> balanceInicial;
 
     @FXML
@@ -102,6 +105,7 @@ public class Controller {
         });
 
         btnBuscar.setOnAction(event -> buscarStock());
+        btnHipoteca.setOnAction(event -> calcularHipoteca());
 
         symbol.textProperty().addListener((obs, oldText, newText) -> {
             if (newText.length() >= 1) {
@@ -124,6 +128,7 @@ public class Controller {
         Transicion.aplicarTransicionHover(btnInicial);
         Transicion.aplicarTransicionHover(btnBuscar);
         Transicion.aplicarTransicionHover(btndca);
+        Transicion.aplicarTransicionHover(btnHipoteca);
 
         //Inicializar los valores de los spinners
         balanceInicial.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000000.0, 100.0, 1.0));
@@ -253,5 +258,9 @@ public class Controller {
                     e.printStackTrace();
                     return null;
                 });
+    }
+
+    private void calcularHipoteca() {
+        System.out.println("Calculando hipoteca...");
     }
 }
