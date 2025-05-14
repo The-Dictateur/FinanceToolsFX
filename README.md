@@ -31,7 +31,10 @@
 ### JavaFX SDK 21 o superior
 - Descarga e instala JavaFX SDK 21 o superior desde el siguiente enlace: https://gluonhq.com/products/javafx/
 
-- Ubicar SDK en la carpeta de Java '(C:\Program Files\Java\javafx-sdk-24.0.1)'
+- Ubicar SDK en la carpeta de Java 
+```bash
+(C:\Program Files\Java\javafx-sdk-24.0.1)
+```
 
 ### Modificar launch.json
 
