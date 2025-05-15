@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -89,6 +90,21 @@ public class Controller {
     @FXML
     private ListView<String> sugerenciasStock;
 
+    @FXML
+    private Slider dineroSlider;
+
+    @FXML
+    private Slider yearSlider;
+
+    @FXML
+    private TextField precioVivienda;
+
+    @FXML
+    private TextField dineroNecesario;
+
+    @FXML
+    private TextField years;
+
     private final HttpClient client = HttpClient.newHttpClient();
 
     @FXML
@@ -121,6 +137,35 @@ public class Controller {
                 symbol.setText(selectedSymbol);
                 sugerenciasStock.getItems().clear(); // Limpiar sugerencias después de seleccionar
                 sugerenciasStock.setVisible(false); // Ocultar la lista de sugerencias
+            }
+        });
+
+        dineroSlider.valueProperty().addListener((obs, oldText, newText) -> {
+            try {
+                double precio = Double.parseDouble(precioVivienda.getText());
+                dineroSlider.setMin(0);
+                dineroSlider.setMax(precio);
+                dineroSlider.setSnapToTicks(true);
+                dineroSlider.setMajorTickUnit(100);
+                dineroSlider.setMinorTickCount(0);
+                dineroSlider.setBlockIncrement(100);
+                dineroNecesario.setText(String.format("%.2f", dineroSlider.getValue()));
+            } catch (NumberFormatException e) {
+                dineroSlider.setValue(0);
+            }
+        });
+
+        yearSlider.valueProperty().addListener((obs, oldText, newText) -> {
+            try {
+                yearSlider.setMin(0);
+                yearSlider.setMax(30);
+                yearSlider.setSnapToTicks(true);
+                yearSlider.setMajorTickUnit(1);
+                yearSlider.setMinorTickCount(0);
+                yearSlider.setBlockIncrement(1);
+                years.setText(String.format("%.0f", yearSlider.getValue()));
+            } catch (NumberFormatException e) {
+                yearSlider.setValue(0);
             }
         });
 

@@ -84,7 +84,7 @@
                   <Label layoutX="6.0" layoutY="105.0" text="Dinero necessario" />
                   <Label layoutX="43.0" layoutY="158.0" text="Años" />
                   <TextField fx:id="years" editable="false" layoutX="117.0" layoutY="153.0" />
-                  <Slider fx:id="dineroSlider" layoutX="122.0" layoutY="124.0" />
+                  <Slider fx:id="dineroSlider" blockIncrement="100.0" layoutX="122.0" layoutY="124.0" />
                   <TextField fx:id="dineroNecesario" editable="false" layoutX="117.0" layoutY="90.0" prefHeight="19.0" />
                   <Button fx:id="btnHipoteca" layoutX="40.0" layoutY="236.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="214.0" text="Calcular Hipoteca" />
                   <Slider fx:id="yearSlider" layoutX="122.0" layoutY="188.0" />
