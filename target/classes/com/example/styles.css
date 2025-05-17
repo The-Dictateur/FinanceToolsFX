@@ -38,7 +38,7 @@
     -fx-text-fill: #333;
 }
 
-.resultadoDCA {
+.resultado {
     -fx-font-size: 30px;
     -fx-text-fill: #333;
     -fx-font-weight: bold; /* Texto en negrita */

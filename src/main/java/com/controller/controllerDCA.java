@@ -9,7 +9,6 @@ import java.util.Locale;
 import javafx.scene.chart.PieChart;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import com.example.Transicion;

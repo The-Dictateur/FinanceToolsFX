@@ -124,7 +124,14 @@ public class Controller {
         });
 
         btnBuscar.setOnAction(event -> buscarStock());
-        btnHipoteca.setOnAction(event -> calcularHipoteca());
+        btnHipoteca.setOnAction(event -> {
+            try {
+                calcularHipoteca();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
 
         symbol.textProperty().addListener((obs, oldText, newText) -> {
             if (newText.length() >= 1) {
@@ -328,7 +335,19 @@ public class Controller {
                 });
     }
 
-    private void calcularHipoteca() {
-        System.out.println("Calculando hipoteca...");
+    private void calcularHipoteca() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hipoteca.fxml"));
+            Parent hipoteca = loader.load();
+
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setTitle("Hipoteca");
+            nuevaVentana.setScene(new Scene(hipoteca));
+            nuevaVentana.show();
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            precioVivienda.setText("Error al calcular la hipoteca.");
+        }
     }
 }
