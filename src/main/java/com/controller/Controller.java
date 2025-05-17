@@ -82,6 +82,9 @@ public class Controller {
     private Spinner<Integer> duracion;
 
     @FXML
+    private Spinner<Double> spinnerInteres;
+
+    @FXML
     private VBox vboxDCA;
 
     @FXML
@@ -180,6 +183,26 @@ public class Controller {
         deposito.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000000.0, 50.0, 1.0));
         interesAnual.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 100.0, 5.0, 0.1));
         duracion.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 10, 1));
+        
+        // Inicializar i dar formato a spinner de Interes anual
+        spinnerInteres.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 100.0, 2.5, 0.01));
+    
+        SpinnerValueFactory.DoubleSpinnerValueFactory valueFactory = 
+        (SpinnerValueFactory.DoubleSpinnerValueFactory) spinnerInteres.getValueFactory();
+
+        valueFactory.setConverter(new javafx.util.StringConverter<Double>() {
+            @Override
+            public String toString(Double value) {
+                if (value == null) return "";
+                return String.format("%.2f %%", value);
+            }
+
+            @Override
+            public Double fromString(String string) {
+                // TODO Auto-generated method stub
+                return Double.valueOf(string.replace("%", "").replace(" ", "").replace(",", "."));
+            }
+        });
     }
 
     private void calcularValorInicial() {
