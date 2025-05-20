@@ -1,4 +1,4 @@
-# My-Stock Tools
+# FinanceToolsFX
 
 **My-Stock Tools** es una aplicación de escritorio desarrollada en **Java** con **JavaFX**, diseñada para consultar información bursátil en tiempo real utilizando la API REST de [Finnhub](https://finnhub.io/). Esta herramienta también dispone funcionalidades de gestión en inversiones como promediaciones DCA o simulador de hipoteca.
 
@@ -7,7 +7,7 @@
 ## Características
 
 - 💰 **Calculadora de DCA**
-- 🏠 **Calculadora de hipoetca**
+- 🏠 **Calculadora de hipoteca**
 - 📊 Consulta de datos bursátiles usando **API REST de Finnhub**
 - 🖥️ Interfaz de usuario moderna con **JavaFX**
 - 🔐 Uso seguro de claves API (a través de constantes o configuración)
