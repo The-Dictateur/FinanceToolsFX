@@ -55,3 +55,11 @@ cd my-stock-tools
 ### 3. Ejecuta el proyecto
 
 - El proyecto está preparado para ejecutarse en el entorno de JavaFX si se ha configurado previamente el archivo launch.json
+
+## Contribuciones
+
+¡Las contribuciones son bienvenidas! Puedes hacer un fork, proponer mejoras o abrir issues si encuentras errores.
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT.
