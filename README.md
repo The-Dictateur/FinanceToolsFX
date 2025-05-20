@@ -36,13 +36,6 @@
 (C:\Program Files\Java\javafx-sdk-24.0.1)
 ```
 
-### Modificar launch.json
-
-- Ajusta la ruta del SDK de JavaFX según la ubicación en tu equipo:
-```json
-"vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.7/lib\" --add-modules javafx.controls,javafx.fxml"
-```
-
 ## Instalación y ejecución
 
 ### 1. Clona el repositorio
@@ -52,6 +45,13 @@ git clone https://github.com/tuusuario/my-stock-tools.git
 cd my-stock-tools
 ```
 
-### 2. Ejecuta el proyecto
+### 2. Modificar launch.json
+
+- Ajusta la ruta del SDK de JavaFX según la ubicación en tu equipo:
+```json
+"vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.7/lib\" --add-modules javafx.controls,javafx.fxml"
+```
+
+### 3. Ejecuta el proyecto
 
 - El proyecto está preparado para ejecutarse en el entorno de JavaFX si se ha configurado previamente el archivo launch.json
