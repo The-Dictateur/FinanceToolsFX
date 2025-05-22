@@ -82,9 +82,6 @@ public class Controller {
     private Spinner<Integer> duracion;
 
     @FXML
-    private Spinner<Double> spinnerInteres;
-
-    @FXML
     private VBox vboxDCA;
 
     @FXML
@@ -93,20 +90,19 @@ public class Controller {
     @FXML
     private ListView<String> sugerenciasStock;
 
+    // Hipoteca
     @FXML
     private Slider dineroSlider;
-
     @FXML
     private Slider yearSlider;
-
     @FXML
     private TextField precioVivienda;
-
     @FXML
-    private TextField dineroNecesario;
-
+    private TextField ahorroAportado;
     @FXML
     private TextField years;
+    @FXML
+    private Spinner<Double> spinnerInteres;
 
     private final HttpClient client = HttpClient.newHttpClient();
 
@@ -159,7 +155,7 @@ public class Controller {
                 dineroSlider.setMajorTickUnit(100);
                 dineroSlider.setMinorTickCount(0);
                 dineroSlider.setBlockIncrement(100);
-                dineroNecesario.setText(String.format("%.2f", dineroSlider.getValue()));
+                ahorroAportado.setText(String.format("%.2f", dineroSlider.getValue()));
             } catch (NumberFormatException e) {
                 dineroSlider.setValue(0);
             }
@@ -339,6 +335,16 @@ public class Controller {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hipoteca.fxml"));
             Parent hipoteca = loader.load();
+
+            controllerHipoteca hipotecaController = loader.getController();
+
+            // Obtener los valores de los spinners
+            hipotecaController.setPrecioVivienda(Double.parseDouble(precioVivienda.getText()));
+            hipotecaController.setDinero(Double.parseDouble(ahorroAportado.getText().replace(",", ".")));
+            hipotecaController.setYears(Integer.parseInt(years.getText()));
+            hipotecaController.setInteresAnual(spinnerInteres.getValue());
+
+            hipotecaController.resultadoHipoteca(); // Llamar al método para calcular el resultado
 
             Stage nuevaVentana = new Stage();
             nuevaVentana.setTitle("Hipoteca");

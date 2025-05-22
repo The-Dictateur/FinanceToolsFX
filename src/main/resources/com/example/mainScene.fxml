@@ -81,11 +81,11 @@
                <children>
                   <Label layoutX="14.0" layoutY="27.0" text="Precio vivienda" />
                   <TextField fx:id="precioVivienda" layoutX="117.0" layoutY="22.0" />
-                  <Label layoutX="6.0" layoutY="71.0" text="Dinero necessario" />
+                  <Label layoutX="6.0" layoutY="71.0" text="Ahorro aportado" />
                   <Label layoutX="43.0" layoutY="129.0" text="Años" />
                   <TextField fx:id="years" editable="false" layoutX="117.0" layoutY="124.0" />
                   <Slider fx:id="dineroSlider" blockIncrement="100.0" layoutX="122.0" layoutY="101.0" />
-                  <TextField fx:id="dineroNecesario" editable="false" layoutX="117.0" layoutY="66.0" prefHeight="19.0" />
+                  <TextField fx:id="ahorroAportado" editable="false" layoutX="117.0" layoutY="66.0" prefHeight="19.0" />
                   <Button fx:id="btnHipoteca" layoutX="40.0" layoutY="236.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="214.0" text="Calcular Hipoteca" />
                   <Slider fx:id="yearSlider" layoutX="122.0" layoutY="159.0" />
                   <Label layoutX="20.0" layoutY="191.0" text="Interes Anual" />

@@ -48,7 +48,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="resultadoDCA" layoutX="21.0" layoutY="55.0" prefHeight="45.0" prefWidth="246.0" styleClass="resultadoDCA" text="Resultado" />
+            <Label fx:id="resultadoDCA" layoutX="21.0" layoutY="55.0" prefHeight="45.0" prefWidth="246.0" styleClass="resultado" text="Resultado" />
             <Label layoutX="21.0" layoutY="110.0" text="Capital inicial: " />
             <Label layoutX="21.0" layoutY="139.0" text="Ahorro sin intereses: " />
             <Label layoutX="21.0" layoutY="168.0" text="Interes total: " />
