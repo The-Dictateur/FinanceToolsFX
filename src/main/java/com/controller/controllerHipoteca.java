@@ -1,5 +1,11 @@
 package com.controller;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
 public class controllerHipoteca {
 
     private double precioVivienda;
@@ -25,18 +31,35 @@ public class controllerHipoteca {
         this.spinnerInteres = spinnerInteres;
     }
 
+    @FXML
+    private Label resultadoHipoteca; // Label para mostrar el resultado
+
+    @FXML
+    private Label resultadoTotal;
+
+    @FXML
+    private Label resultadoInteres;
+
     public void resultadoHipoteca() {
         double cantidadPrestamo = precioVivienda - ahorroAportado;
         double interesMensual = spinnerInteres / 100 / 12;
         int meses = years * 12;
 
-        double cuotaMensual = (cantidadPrestamo * interesMensual) / (1 - Math.pow(1 + interesMensual, -meses));
+        double cuotaMensual = (cantidadPrestamo * interesMensual) / (1 - Math.pow(1 + interesMensual, - meses));
         double totalPagado = cuotaMensual * meses;
         double totalIntereses = totalPagado - cantidadPrestamo;
 
+        // Formatear el balance con separadores de miles y dos decimales
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(2);
+        String cuotaFormateado = numberFormat.format(cuotaMensual);
+        String totalFormateado = numberFormat.format(totalPagado);
+        String interesFormateado = numberFormat.format(totalIntereses);
+
         // Mostrar resultados
-        System.out.println("Cuota mensual: " + String.format("%.2f", cuotaMensual));
-        System.out.println("Total pagado: " + String.format("%.2f", totalPagado));
-        System.out.println("Total intereses: " + String.format("%.2f", totalIntereses));
+        resultadoHipoteca.setText(String.format(cuotaFormateado + " €"));
+        resultadoTotal.setText(String.format(totalFormateado + " €"));
+        resultadoInteres.setText(String.format(interesFormateado + " €"));
     }
 }

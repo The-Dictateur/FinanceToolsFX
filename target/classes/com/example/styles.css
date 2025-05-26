@@ -44,6 +44,12 @@
     -fx-font-weight: bold; /* Texto en negrita */
 }
 
+.resultado2 {
+    -fx-font-size: 20px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold; /* Texto en negrita */
+}
+
 .text-positive {
     -fx-text-fill: green; /* Color verde */
     -fx-font-weight: bold; /* Texto en negrita (opcional) */
