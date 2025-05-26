@@ -6,7 +6,7 @@
 
 ## Características
 
-- 💰 **Calculadora de DCA** (En proceso)
+- 💰 **Calculadora de DCA**
 - 🏠 **Calculadora de hipoteca**
 - 📊 Consulta de datos bursátiles usando **API REST de Finnhub**
 - 🖥️ Interfaz de usuario moderna con **JavaFX**
