@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.example.Constants;
-import com.example.StockFetcher;
+import com.example.FinnhubService;
 import com.example.Transicion;
 
 import javafx.application.Platform;
@@ -256,6 +256,8 @@ public class Controller {
     private void buscarStock() {
         try {
 
+        FinnhubService service = new FinnhubService(Constants.API_KEY);
+
         // Limpiar los campos de texto antes de buscar
         valorSymbol.clear();
         cambioSymbol.clear();
@@ -264,7 +266,7 @@ public class Controller {
         String symbol = this.symbol.getText().toUpperCase();
 
         // Llamar al método StockFetcher para obtener los datos del stock
-        String resultado = StockFetcher.stock(symbol);
+        String resultado = service.getStockInfo(symbol);
 
         // Procesar el JSON
         JSONObject json = new JSONObject(resultado);
