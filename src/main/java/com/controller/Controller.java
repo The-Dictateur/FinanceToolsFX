@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 
 public class Controller {
 
+    //Etiquetas FXML
     @FXML
     private TextField valorInicial;
 
@@ -111,6 +112,7 @@ public class Controller {
         // Configurar el botón "Calcular" para "Valor Inicial"
         btnInicial.setOnAction(event -> calcularValorInicial());
 
+        // Configurar el boton "DCA" para que calule el DCA
         btndca.setOnAction(event -> {
             try {
                 calcularDCA();
@@ -119,6 +121,7 @@ public class Controller {
             }
         });
 
+        // Configurar boton para buscar la informacion del stock
         btnBuscar.setOnAction(event -> buscarStock());
         btnHipoteca.setOnAction(event -> {
             try {
@@ -129,6 +132,7 @@ public class Controller {
             }
         });
 
+        // Añadir propiedades al textField para saber si hay texto nuevo o modificaciones
         symbol.textProperty().addListener((obs, oldText, newText) -> {
             if (newText.length() >= 1) {
                 buscarSugerencias(newText);
@@ -136,7 +140,8 @@ public class Controller {
                 sugerenciasStock.getItems().clear(); // Limpiar sugerencias si el campo está vacío
             }
         });
-        
+
+        // Funcion para escoger entre la lista desplegable del TextField
         sugerenciasStock.setOnMouseClicked(event -> {
             String selectedSymbol = sugerenciasStock.getSelectionModel().getSelectedItem();
             if (selectedSymbol != null) {
@@ -146,6 +151,7 @@ public class Controller {
             }
         });
 
+        // Propiedades de slider del dinero no superior al de la vivienda
         dineroSlider.valueProperty().addListener((obs, oldText, newText) -> {
             try {
                 double precio = Double.parseDouble(precioVivienda.getText());
@@ -161,6 +167,7 @@ public class Controller {
             }
         });
 
+        // Propiedades de slider anual hasta 30 años
         yearSlider.valueProperty().addListener((obs, oldText, newText) -> {
             try {
                 yearSlider.setMin(0);
@@ -193,6 +200,7 @@ public class Controller {
         SpinnerValueFactory.DoubleSpinnerValueFactory valueFactory = 
         (SpinnerValueFactory.DoubleSpinnerValueFactory) spinnerInteres.getValueFactory();
 
+        // Eliminar los espacios vacios y dejar solo dos decimales
         valueFactory.setConverter(new javafx.util.StringConverter<Double>() {
             @Override
             public String toString(Double value) {
@@ -200,6 +208,7 @@ public class Controller {
                 return String.format("%.2f %%", value);
             }
 
+            // Eliminar simbolo %, espacios y sustituir por puntos para que se pueda leer en formato Double
             @Override
             public Double fromString(String string) {
                 // TODO Auto-generated method stub
@@ -208,6 +217,7 @@ public class Controller {
         });
     }
 
+    // Funcion para calcular el valor inicial de la vivienda y mostrar el resultado 
     private void calcularValorInicial() {
         try {
             // Obtener valores de los campos de texto
@@ -227,11 +237,14 @@ public class Controller {
         }
     }
 
+    // Caluclar los valores para el DCA y mostrar la ventana del dca.fxml
     private void calcularDCA() throws IOException {
         try {
+        // Cargamos el archivo .fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/dca.fxml"));
         Parent dca = loader.load();
 
+        // Cargamos el controller del DCA
         controllerDCA dcaController = loader.getController();
 
         // Obtener los valores de los spinners
@@ -241,8 +254,8 @@ public class Controller {
         dcaController.setDuracion((int) duracion.getValue());
 
         dcaController.resultadoDCA(); // Llamar al método para calcular el resultado
-        
 
+        // Creamos stage para la nueva ventana para el DCA
         Stage nuevaVentana = new Stage();
         nuevaVentana.setTitle("Resultado DCA");
         nuevaVentana.setScene(new Scene(dca));
@@ -253,6 +266,7 @@ public class Controller {
         }
     }
 
+    // Funcion para buscar Stock y mostrar los datos en los textField
     private void buscarStock() {
         try {
 
@@ -265,7 +279,7 @@ public class Controller {
         // Obtener el símbolo del stock desde el campo de texto
         String symbol = this.symbol.getText().toUpperCase();
 
-        // Llamar al método StockFetcher para obtener los datos del stock
+        // Llamar al service de Finnhub para extraer el resultado
         String resultado = service.getStockInfo(symbol);
 
         // Procesar el JSON
@@ -301,6 +315,10 @@ public class Controller {
             valorSymbol.setText("Error al buscar el stock.");
         }
     }
+
+    // TODO: Implementar service para buscar sugerencias
+
+    // Funcion para desplegar sugerencias de stocks
     private void buscarSugerencias(String symbol) {
         String endpoint = "https://finnhub.io/api/v1/search?q=" + symbol + "&token=" + Constants.API_KEY;
 
@@ -333,11 +351,14 @@ public class Controller {
                 });
     }
 
+    // Funcion para calcular la hipoteca y abrir la nueva ventana
     private void calcularHipoteca() throws IOException {
         try {
+            // Cargar archivo .fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hipoteca.fxml"));
             Parent hipoteca = loader.load();
 
+            // Añadir controller de la Hipoteca
             controllerHipoteca hipotecaController = loader.getController();
 
             // Obtener los valores de los spinners
@@ -348,6 +369,7 @@ public class Controller {
 
             hipotecaController.resultadoHipoteca(); // Llamar al método para calcular el resultado
 
+            // Añadimos stage para la nueva ventana de la Hipoteca
             Stage nuevaVentana = new Stage();
             nuevaVentana.setTitle("Hipoteca");
             nuevaVentana.setScene(new Scene(hipoteca));
