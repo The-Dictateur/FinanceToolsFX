@@ -20,7 +20,7 @@ public class controllerDCA {
     private double interesAnual;
     private int duracion; // Duracion en años
 
-    // Setter for balanceInicial
+    // Setters de Hipoteca en Controller
     public void setBalanceInicial(double balanceInicial) {
         this.balanceInicial = balanceInicial;
     }
@@ -37,8 +37,9 @@ public class controllerDCA {
         this.duracion = duracion;
     }
 
+    // Etiquetas FXML
     @FXML
-    private Label resultadoDCA; // Label para mostrar el resultado
+    private Label resultadoDCA;
 
     @FXML
     private Label capitalInicialResultado;
@@ -59,6 +60,7 @@ public class controllerDCA {
         Transicion.aplicarTransicionHover(btnDescargarXlsx);
         btnDescargarXlsx.setOnAction(event -> {
             try {
+                // Funcion para descargar archivo .xlsx
                 descargarXlsx();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -67,6 +69,7 @@ public class controllerDCA {
         });
     }
 
+    // Funcion para calcular la hipoteca con los setters del Controller.java
     public void resultadoDCA() {
         double ahorroSinInteres = 0;
         double interes = 0;
@@ -74,6 +77,7 @@ public class controllerDCA {
         double interesMensual = interesAnual / 12 / 100; // Convertir el interés anual a mensual en decimal
         int meses = (int) (duracion * 12); // Convertir la duración en años a meses
 
+        // Bucle para calcular por meses la cuota, el interes y el ahorro total
         for (int i = 0; i < meses; i++) {
             balance += depositoMensual; // Agregar el depósito mensual
             balance += balance * interesMensual; // Calcular y agregar el interés mensual
@@ -98,6 +102,8 @@ public class controllerDCA {
         interesResultado.setText(interesFormateado + " €");
 
         pieChartDCA.getData().clear(); // Limpiar datos anteriores del gráfico
+
+        // Inicializar los datos en el gràfico (PieChart)
         PieChart.Data sliceCapitalInicial = new PieChart.Data("Capaital Inicial", balanceInicial);
         PieChart.Data sliceAhorroSinInteres = new PieChart.Data("Ahorro sin interes", ahorroSinInteres);
         PieChart.Data sliceIntereses = new PieChart.Data("Intereses", interes);
@@ -110,8 +116,12 @@ public class controllerDCA {
         pieChartDCA.setLabelLineLength(10); // Establecer la longitud de la línea de etiqueta
     }
 
+    // TODO: Implementar compatibilidad con Linux, Mac
+    
+    // Funcion para descargar archivo .xlsx
     private void descargarXlsx() throws IOException {
-        
+
+        //Extraemos el usuario y la ruta de descargas
         String userHome = System.getProperty("user.home");
         String downloadDir = Paths.get(userHome, "Downloads").toString(); // Carpeta Descargas
         Files.createDirectories(Paths.get(downloadDir)); // Crear la carpeta si no existe
@@ -119,22 +129,26 @@ public class controllerDCA {
         // Ruta completa del archivo
         String nombreArchivo = Paths.get(downloadDir, "Resultado_DCA.csv").toString();
 
+        // Creamos el archivo y separamos los datos con ; para que se agreguen en cada columna
         try (FileWriter writer = new FileWriter(nombreArchivo)) {
             CSVWriter csvWriter = new CSVWriter(writer, ';', 
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                 CSVWriter.DEFAULT_LINE_END);
+            // Definimos los titulos por columna
             String[] header = { "Capital Inicial", "Ahorro sin Interes", "Intereses", "Total" };
             csvWriter.writeNext(header);
 
+            // Formaeteamos a mano para que se represente correctamente en el .xlsx
             String ahorroSinInteresLimpio = ahorroSinInteresResultado.getText().replace(" €", "").replace(".", "").replace(",", ".");
             String interesLimpio = interesResultado.getText().replace(" €", "").replace(".", "").replace(",", ".");
             String totalLimpio = resultadoDCA.getText().replace(" €", "").replace(".", "").replace(",", ".");
 
+            // Escribimos los datos que extreamos de las variables en el archivo
             String[] data = { String.valueOf(balanceInicial), String.valueOf(ahorroSinInteresLimpio),
                     String.valueOf(interesLimpio), String.valueOf(totalLimpio) };
             csvWriter.writeNext(data);
-
+            
             csvWriter.close();
             System.out.println("Archivo CSV creado: " + nombreArchivo);
 
