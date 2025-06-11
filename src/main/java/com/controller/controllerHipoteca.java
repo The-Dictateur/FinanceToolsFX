@@ -14,7 +14,7 @@ public class controllerHipoteca {
     private Double spinnerInteres; // Duracion en años
     
 
-    // Setter for balanceInicial
+    // Setters
     public void setPrecioVivienda(double precioVivienda) {
         this.precioVivienda = precioVivienda;
     }
