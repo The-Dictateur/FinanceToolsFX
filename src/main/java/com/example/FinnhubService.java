@@ -12,9 +12,12 @@ public class FinnhubService {
         this.apiKey = apiKey;
     }
 
+    // Funcion para evolver en formato String la informacion del Stock (JSON)
     public String getStockInfo(String symbol) throws Exception {
+        // Definimos URL Finnhub para la funcion que necesitamos
         String endpoint = Constants.BASE_URL + "/quote?symbol=" + symbol + "&token=" + apiKey;
         URL url = new URL(endpoint);
+        // Abrimos la conexion Http
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
