@@ -270,7 +270,8 @@ public class Controller {
     private void buscarStock() {
         try {
 
-        FinnhubService service = new FinnhubService(Constants.API_KEY);
+        HttpClient client = HttpClient.newHttpClient();
+        FinnhubService service = new FinnhubService(Constants.API_KEY, client);
 
         // Limpiar los campos de texto antes de buscar
         valorSymbol.clear();

@@ -16,6 +16,8 @@ public class FinnhubServiceTest {
 
     @Test
     public void testGetStockInfo() {
+        String symbol = "APPL";
+        
         
     }
 }
